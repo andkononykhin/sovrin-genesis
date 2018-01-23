@@ -18,8 +18,11 @@ def buildDebUbuntu = { repoName, releaseVersion, sourcePath ->
     return "$volumeName"
 }
 
+env.SOVRIN_CORE_REPO_NAME = 'test' //FIXME rm test line
+
 options = new TestAndPublishOptions()
 options.enable([StagesEnum.PACK_RELEASE_COPY, StagesEnum.PACK_RELEASE_COPY_ST])
 options.skip([StagesEnum.PYPI_RELEASE])
+options.skip([StagesEnum.BUILD_RESULT_NOTIF, StagesEnum.QA_NOTIF, StagesEnum.PRODUCT_NOTIF, StagesEnum.TGB_NOTIF, StagesEnum.GITHUB_RELEASE]) //FIXME rm test line
 options.setCopyWithDeps(false)
 testAndPublish(name, [ubuntu: [:]], true, options, [ubuntu: buildDebUbuntu])
