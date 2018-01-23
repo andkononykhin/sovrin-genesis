@@ -4,7 +4,7 @@ INPUT_PATH=$1
 VERSION=$2
 OUTPUT_PATH=${3:-.}
 
-PACKAGE_NAME=sovrin
+PACKAGE_NAME=sovrin-genesis
 
 # copy the sources to a temporary folder
 TMP_DIR=$(mktemp -d)

@@ -2,7 +2,7 @@
 
 PKG_SOURCE_PATH="$1"
 VERSION="$2"
-PKG_NAME=sovrin
+PKG_NAME=sovrin-genesis
 IMAGE_NAME="${PKG_NAME}-build-u1604"
 OUTPUT_VOLUME_NAME="${3:-"${PKG_NAME}-deb-u1604"}"
 

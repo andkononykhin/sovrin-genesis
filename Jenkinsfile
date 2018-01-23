@@ -2,10 +2,10 @@
 
 @Library('SovrinHelpers') _
 
-def name = 'sovrin'
+def name = 'sovrin-genesis'
 
 def buildDebUbuntu = { repoName, releaseVersion, sourcePath ->
-    def volumeName = "sovrin-deb-u1604"
+    def volumeName = "${name}-deb-u1604"
     if (env.BRANCH_NAME != '' && env.BRANCH_NAME != 'master') {
         volumeName = "${volumeName}.${BRANCH_NAME}"
     }
@@ -13,7 +13,7 @@ def buildDebUbuntu = { repoName, releaseVersion, sourcePath ->
         sh "docker volume rm $volumeName"
     }
     dir('build-scripts/ubuntu-1604') {
-        sh "./build-sovrin-docker.sh \"$sourcePath\" $releaseVersion $volumeName"
+        sh "./build-${name}-docker.sh \"$sourcePath\" $releaseVersion $volumeName"
     }
     return "$volumeName"
 }

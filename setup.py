@@ -24,10 +24,10 @@ METADATA = os.path.join(SETUP_DIRNAME, 'sovrin', '__metadata__.py')
 exec(compile(open(METADATA).read(), METADATA, 'exec'))
 
 setup(
-    name='sovrin-dev',
+    name='sovrin-genesis-dev',
     version=__version__,
-    description='Sovrin node',
-    url='https://github.com/sovrin-foundation/sovrin',
+    description='Sovrin Genesis Transactions',
+    url='https://github.com/sovrin-foundation/sovrin-genesis',
     author=__author__,
     author_email='dev@evernym.us',
     license=__license__,
@@ -37,5 +37,4 @@ setup(
         '': ['*.txt', '*.md', '*.rst', '*.json', '*.conf', '*.html',
              '*.css', '*.ico', '*.png', 'LICENSE', 'LEGAL', '*.indy']},
     include_package_data=True,
-    install_requires=['indy-node-dev'],
 )
