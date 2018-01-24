@@ -14,21 +14,15 @@ cp -r ${INPUT_PATH}/. ${TMP_DIR}
 cd ${TMP_DIR}/build-scripts/ubuntu-1604
 ./prepare-package.sh ${TMP_DIR} ${VERSION}
 
-fpm --input-type "python" \
+fpm --input-type "dir" \
     --output-type "deb" \
     --architecture "amd64" \
     --verbose \
-    --python-package-name-prefix "python3" \
-    --python-bin "/usr/bin/python3" \
-    --exclude "*.pyc" \
-    --exclude "*.pyo" \
+    --exclude "*.py" \
     --maintainer "Sovrin Foundation <repo@sovrin.org>" \
-    --before-install "preinst" \
-    --after-install "postinst" \
-    --before-remove "prerm" \
-    --no-python-fix-dependencies \
     --name ${PACKAGE_NAME} \
+    --version "${VERSION}" \
     --package ${OUTPUT_PATH} \
-    ${TMP_DIR}
+    ${TMP_DIR}/sovrin/=/etc/sovrin/
 
 rm -rf ${TMP_DIR}

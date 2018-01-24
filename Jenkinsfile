@@ -20,5 +20,6 @@ def buildDebUbuntu = { repoName, releaseVersion, sourcePath ->
 
 options = new TestAndPublishOptions()
 options.enable([StagesEnum.PACK_RELEASE_COPY, StagesEnum.PACK_RELEASE_COPY_ST])
+options.skip([StagesEnum.PYPI_RELEASE])
 options.setCopyWithDeps(false)
 testAndPublish(name, [ubuntu: [:]], true, options, [ubuntu: buildDebUbuntu])
