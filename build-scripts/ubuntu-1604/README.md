@@ -1,7 +1,7 @@
 ### Build a sovrin-genesis package using docker
 
 ```
-./build-sovrin-docker.sh <path-to-sources> <version>
+./build-sovrin-genesis-docker.sh <path-to-sources> <version>
 ```
 Built package is placed in a docker volume `sovrin-genesis-deb-u1604`. 
 

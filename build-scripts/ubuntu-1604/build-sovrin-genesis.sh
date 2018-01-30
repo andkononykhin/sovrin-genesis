@@ -18,11 +18,10 @@ fpm --input-type "dir" \
     --output-type "deb" \
     --architecture "amd64" \
     --verbose \
-    --exclude "*.py" \
     --maintainer "Sovrin Foundation <repo@sovrin.org>" \
     --name ${PACKAGE_NAME} \
     --version "${VERSION}" \
     --package ${OUTPUT_PATH} \
-    ${TMP_DIR}/sovrin/=/etc/sovrin/
+    ${TMP_DIR}/sovrin/=/etc/sovrin/genesis/
 
 rm -rf ${TMP_DIR}

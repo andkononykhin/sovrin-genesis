@@ -4,6 +4,28 @@
 
 def name = 'sovrin-genesis'
 
+def getVersion() {
+    version = ''
+    stage('GetVersion') {
+        node('ubuntu') {
+            try {
+                echo 'Get version'
+                checkout scm
+
+                ver = sh(returnStdout: true, script: "grep -E '^version =' ./sovrin/manifest.txt | head -n1 | cut -f2 -d= | cut -f2 -d '\"'").trim()
+                patch = env.BUILD_NUMBER
+                version = "${ver}.${patch}"
+            }
+            finally {
+                echo 'Get version: Cleanup'
+                step([$class: 'WsCleanup'])
+            }
+        }
+    }
+
+    return version
+}
+
 def buildDebUbuntu = { repoName, releaseVersion, sourcePath ->
     def volumeName = "${name}-deb-u1604"
     if (env.BRANCH_NAME != '' && env.BRANCH_NAME != 'master') {
@@ -22,7 +44,8 @@ env.SOVRIN_CORE_REPO_NAME = 'test' //FIXME rm test line
 
 options = new TestAndPublishOptions()
 options.enable([StagesEnum.PACK_RELEASE_COPY, StagesEnum.PACK_RELEASE_COPY_ST])
-options.skip([StagesEnum.PYPI_RELEASE])
+options.skip([StagesEnum.PYPI_RELEASE, StagesEnum.GET_RELEASE_VERSION])
+options.setReleaseVersion(getVersion())
 options.skip([StagesEnum.BUILD_RESULT_NOTIF, StagesEnum.QA_NOTIF, StagesEnum.PRODUCT_NOTIF, StagesEnum.TGB_NOTIF, StagesEnum.GITHUB_RELEASE]) //FIXME rm test line
 options.setCopyWithDeps(false)
 testAndPublish(name, [ubuntu: [:]], true, options, [ubuntu: buildDebUbuntu])
